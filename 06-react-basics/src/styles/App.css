@@ -1,0 +1,17 @@
+.app {
+  padding: 1rem;
+}
+
+.app__title {
+  color: teal;
+}
+
+.item {
+  display: flex;
+  max-width: 400px;
+  margin: 0.2rem 0;
+}
+.item > p {
+  flex: 1;
+  margin-right: 1rem;
+}
