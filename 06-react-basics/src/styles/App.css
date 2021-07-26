@@ -15,3 +15,6 @@
   flex: 1;
   margin-right: 1rem;
 }
+.nav__link {
+  margin: 0 0.4rem;
+}

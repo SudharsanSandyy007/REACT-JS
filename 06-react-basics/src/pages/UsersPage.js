@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const fetchUsers = async (pageNo) => {
   try {
@@ -16,6 +17,7 @@ const fetchUsers = async (pageNo) => {
 function Users() {
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
+  const params = useParams();
 
   useEffect(() => {
     const makeRequest = async () => {
@@ -34,6 +36,8 @@ function Users() {
 
   return (
     <div>
+      <h2>{params.username}</h2>
+
       {users.map((u) => (
         <p key={u.email}>
           {u.name.first} {u.name.last}

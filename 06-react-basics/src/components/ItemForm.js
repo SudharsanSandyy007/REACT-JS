@@ -1,24 +1,26 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 function ItemForm({ setList }) {
   const [text, setText] = useState("");
+  const str = useRef("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(text);
+    const newItem = str.current.value;
     setList((prev) => {
-      return [...prev, text];
+      return [...prev, newItem];
     });
-    setText("");
+    str.current.value = "";
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input
+          ref={str}
           type="text"
-          onChange={(e) => setText(e.target.value)}
-          value={text}
+          // onChange={(e) => (str.current = e.target.value)}
+          // value={str.current}
           placeholder="type something"
           required
         />

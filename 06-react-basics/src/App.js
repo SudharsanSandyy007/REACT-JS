@@ -1,40 +1,33 @@
-import { useEffect, useState } from "react";
-import Item from "./components/Item";
-import ItemForm from "./components/ItemForm";
-import Users from "./components/Users";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./styles/App.css";
+import ItemsPage from "./pages/ItemsPage";
+import UsersPage from "./pages/UsersPage";
+import HomePage from "./pages/HomePage";
+import NavBar from "./components/NavBar";
+import UserPage from "./pages/UserPage";
 
 function App() {
-  const [list, setList] = useState(() => {
-    let items = localStorage.getItem("items");
-    items = JSON.parse(items);
-    if (items) return [...items];
-    else return [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("items", JSON.stringify(list));
-  }, [list]);
-
-  const handleDeleteItem = (item) => {
-    setList((prev) => {
-      return prev.filter((i) => i !== item);
-    });
-  };
-
   return (
-    <div className="app">
-      <ItemForm setList={setList} />
-      {list.map((item, index) => (
-        <Item
-          key={index}
-          item={item}
-          deleteItem={() => handleDeleteItem(item)}
-        />
-      ))}
+    <Router>
+      <div className="app">
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
 
-      <Users />
-    </div>
+          <Route path="/items" component={ItemsPage} />
+
+          <Route exact path="/users">
+            <UserPage />
+          </Route>
+
+          <Route path="/users/:username">
+            <UsersPage />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

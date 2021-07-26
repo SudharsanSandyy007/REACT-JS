@@ -1,21 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useReducer, useState } from "react";
+
+const countReducer = (state, action) => {
+  switch (action.type) {
+    case "INC":
+      return state + action.value;
+
+    case "DEC":
+      return state - 1;
+
+    default:
+      return state;
+  }
+};
 
 function Counter() {
-  const [count, setCount] = useState(0);
-  const [countSquare, setCountSquare] = useState(0);
+  // const [count, setCount] = useState(0);
+  const [counter, dispatch] = useReducer(countReducer, 0);
 
-  useEffect(() => {
-    console.log("hi");
-    setCountSquare(count * count);
-  }, [count]);
+  const incCounter = () => dispatch({ type: "INC", value: 2 });
+  const decCounter = () => dispatch({ type: "DEC" });
 
-  const incCounter = () => setCount((prev) => prev + 1);
-  const decCounter = () => setCount((prev) => prev - 1);
   return (
     <div>
-      <h3>
-        {count} | {countSquare}
-      </h3>
+      <h3> {counter} </h3>
       <button onClick={incCounter}>Inc</button>
       <button onClick={decCounter}>Dec</button>
       <br />
